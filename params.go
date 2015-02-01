@@ -35,7 +35,7 @@ type params struct {
 // pointcoind on the main network (btcwire.MainNet).
 var mainNetParams = params{
 	Params:         &btcnet.MainNetParams,
-	connect:        "localhost:22228",
+	connect:        "localhost:8334",
 	pointcoindPort: "22228",
 	svrPort:        "8332",
 }
