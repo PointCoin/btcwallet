@@ -12,10 +12,10 @@ package main
 import (
 	"testing"
 
-	"github.com/btcsuite/btcd/txscript"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcwallet/tx"
-	"github.com/btcsuite/btcwire"
+	"github.com/PointCoin/pointcoind/txscript"
+	"github.com/PointCoin/btcutil"
+	"github.com/PointCoin/wallet/tx"
+	"github.com/PointCoin/btcwire"
 )
 
 func init() {
@@ -98,7 +98,7 @@ func TestFakeTxs(t *testing.T) {
 	// Create and add a fake Utxo so we have some funds to spend.
 	//
 	// This will pass validation because txcscript is unaware of invalid
-	// tx inputs, however, this example would fail in btcd.
+	// tx inputs, however, this example would fail in pointcoind.
 	utxo := &tx.Utxo{}
 	addr, err := w.NextChainedAddress(&keystore.BlockStamp{}, 100)
 	if err != nil {
@@ -121,7 +121,7 @@ func TestFakeTxs(t *testing.T) {
 	utxo.Height = 12345
 	a.UtxoStore = append(a.UtxoStore, utxo)
 
-	// Fake our current block height so btcd doesn't need to be queried.
+	// Fake our current block height so pointcoind doesn't need to be queried.
 	curBlock.BlockStamp.Height = 12346
 
 	// Create the transaction.

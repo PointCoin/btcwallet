@@ -26,14 +26,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/btcsuite/btcd/blockchain"
-	"github.com/btcsuite/btcjson"
-	"github.com/btcsuite/btcnet"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcwallet/chain"
-	"github.com/btcsuite/btcwallet/keystore"
-	"github.com/btcsuite/btcwallet/txstore"
-	"github.com/btcsuite/btcwire"
+	"github.com/PointCoin/pointcoind/blockchain"
+	"github.com/PointCoin/btcjson"
+	"github.com/PointCoin/btcnet"
+	"github.com/PointCoin/btcutil"
+	"github.com/PointCoin/wallet/chain"
+	"github.com/PointCoin/wallet/keystore"
+	"github.com/PointCoin/wallet/txstore"
+	"github.com/PointCoin/btcwire"
 )
 
 var (
@@ -729,7 +729,7 @@ func (w *Wallet) diskWriter() {
 // AddressUsed returns whether there are any recorded transactions spending to
 // a given address.  Assumming correct TxStore usage, this will return true iff
 // there are any transactions with outputs to this address in the blockchain or
-// the btcd mempool.
+// the pointcoind mempool.
 func (w *Wallet) AddressUsed(addr btcutil.Address) bool {
 	// This not only can be optimized by recording this data as it is
 	// read when opening a wallet, and keeping it up to date each time a
@@ -771,7 +771,7 @@ func (w *Wallet) CalculateBalance(confirms int) (btcutil.Amount, error) {
 
 // CurrentAddress gets the most recently requested Bitcoin payment address
 // from a wallet.  If the address has already been used (there is at least
-// one transaction spending to it in the blockchain or btcd mempool), the next
+// one transaction spending to it in the blockchain or pointcoind mempool), the next
 // chained address is returned.
 func (w *Wallet) CurrentAddress() (btcutil.Address, error) {
 	addr := w.KeyStore.LastChainedAddress()
@@ -1149,7 +1149,7 @@ func (w *Wallet) LockedOutpoints() []btcjson.TransactionInput {
 	return locked
 }
 
-// Track requests btcd to send notifications of new transactions for
+// Track requests pointcoind to send notifications of new transactions for
 // each address stored in a wallet.
 func (w *Wallet) Track() {
 	// Request notifications for transactions sending to all wallet
@@ -1228,7 +1228,7 @@ func (w *Wallet) NewAddress() (btcutil.Address, error) {
 		return nil, fmt.Errorf("key write failed: %v", err)
 	}
 
-	// Request updates from btcd for new transactions sent to this address.
+	// Request updates from pointcoind for new transactions sent to this address.
 	if err := w.chainSvr.NotifyReceived([]btcutil.Address{addr}); err != nil {
 		return nil, err
 	}
@@ -1256,7 +1256,7 @@ func (w *Wallet) NewChangeAddress() (btcutil.Address, error) {
 		return nil, fmt.Errorf("key write failed: %v", err)
 	}
 
-	// Request updates from btcd for new transactions sent to this address.
+	// Request updates from pointcoind for new transactions sent to this address.
 	if err := w.chainSvr.NotifyReceived([]btcutil.Address{addr}); err != nil {
 		return nil, err
 	}
@@ -1307,7 +1307,7 @@ func (w *Wallet) RecoverAddresses(n int) error {
 	return nil
 }
 
-// ReqSpentUtxoNtfns sends a message to btcd to request updates for when
+// ReqSpentUtxoNtfns sends a message to pointcoind to request updates for when
 // a stored UTXO has been spent.
 func (w *Wallet) ReqSpentUtxoNtfns(credits []txstore.Credit) {
 	ops := make([]*btcwire.OutPoint, len(credits))

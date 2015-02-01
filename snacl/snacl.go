@@ -10,7 +10,7 @@ import (
 	"golang.org/x/crypto/nacl/secretbox"
 	"golang.org/x/crypto/scrypt"
 
-	"github.com/btcsuite/fastsha256"
+	"github.com/PointCoin/fastsha256"
 )
 
 var (

@@ -23,12 +23,12 @@ import (
 	"sort"
 	"time"
 
-	"github.com/btcsuite/btcd/blockchain"
-	"github.com/btcsuite/btcd/txscript"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcwallet/keystore"
-	"github.com/btcsuite/btcwallet/txstore"
-	"github.com/btcsuite/btcwire"
+	"github.com/PointCoin/pointcoind/blockchain"
+	"github.com/PointCoin/pointcoind/txscript"
+	"github.com/PointCoin/btcutil"
+	"github.com/PointCoin/wallet/keystore"
+	"github.com/PointCoin/wallet/txstore"
+	"github.com/PointCoin/btcwire"
 )
 
 const (

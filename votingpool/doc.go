@@ -15,7 +15,7 @@
  */
 
 /*
-Package votingpool provides voting pool functionality for btcwallet.
+Package votingpool provides voting pool functionality for wallet.
 
 Overview
 

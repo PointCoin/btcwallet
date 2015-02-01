@@ -21,13 +21,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/btcsuite/btcnet"
-	"github.com/btcsuite/btcrpcclient"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcwallet/keystore"
-	"github.com/btcsuite/btcwallet/txstore"
-	"github.com/btcsuite/btcwire"
-	"github.com/btcsuite/btcws"
+	"github.com/PointCoin/btcnet"
+	"github.com/PointCoin/btcrpcclient"
+	"github.com/PointCoin/btcutil"
+	"github.com/PointCoin/wallet/keystore"
+	"github.com/PointCoin/wallet/txstore"
+	"github.com/PointCoin/btcwire"
+	"github.com/PointCoin/btcws"
 )
 
 type Client struct {
@@ -193,7 +193,7 @@ func parseBlock(block *btcws.BlockDetails) (blk *txstore.Block, idx int, err err
 }
 
 func (c *Client) onClientConnect() {
-	log.Info("Established websocket RPC connection to btcd")
+	log.Info("Established websocket RPC connection to pointcoind")
 	c.notifyConnected(true)
 }
 

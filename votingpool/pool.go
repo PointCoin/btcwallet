@@ -20,11 +20,11 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/btcsuite/btcd/txscript"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcutil/hdkeychain"
-	"github.com/btcsuite/btcwallet/waddrmgr"
-	"github.com/btcsuite/btcwallet/walletdb"
+	"github.com/PointCoin/pointcoind/txscript"
+	"github.com/PointCoin/btcutil"
+	"github.com/PointCoin/btcutil/hdkeychain"
+	"github.com/PointCoin/wallet/waddrmgr"
+	"github.com/PointCoin/wallet/walletdb"
 )
 
 const (

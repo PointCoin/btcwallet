@@ -22,8 +22,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/btcsuite/btcwallet/walletdb"
-	_ "github.com/btcsuite/btcwallet/walletdb/bdb"
+	"github.com/PointCoin/wallet/walletdb"
+	_ "github.com/PointCoin/wallet/walletdb/bdb"
 )
 
 // dbType is the database type name for this driver.

@@ -20,10 +20,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/btcsuite/btcnet"
-	"github.com/btcsuite/btcutil"
-	. "github.com/btcsuite/btcwallet/txstore"
-	"github.com/btcsuite/btcwire"
+	"github.com/PointCoin/btcnet"
+	"github.com/PointCoin/btcutil"
+	. "github.com/PointCoin/wallet/txstore"
+	"github.com/PointCoin/btcwire"
 )
 
 // Received transaction output for mainnet outpoint

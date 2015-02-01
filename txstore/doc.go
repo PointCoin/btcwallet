@@ -31,7 +31,7 @@
 // structure.
 //
 // Besides just saving transactions, bidirectional spend tracking is also
-// performed on each credit and debit.  Unlike packages such as btcdb,
+// performed on each credit and debit.  Unlike packages such as pointcoindb,
 // which only mark whether a transaction output is spent or unspent, this
 // package always records which transaction is responsible for debiting
 // (spending) any credit.  Each debit also points back to the transaction

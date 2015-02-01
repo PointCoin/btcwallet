@@ -5,7 +5,7 @@ btcwallet
 (https://travis-ci.org/btcsuite/btcwallet)
 
 btcwallet is a daemon handling bitcoin wallet functionality for a
-single user.  It acts as both an RPC client to btcd and an RPC server
+single user.  It acts as both an RPC client to pointcoind and an RPC server
 for wallet clients and legacy RPC applications.
 
 The wallet file format is based on
@@ -17,9 +17,9 @@ the consequence of generating new wallets on the fly impossible: a
 client is required to provide a wallet encryption passphrase.
 
 btcwallet is not an SPV client and requires connecting to a local or
-remote btcd instance for asynchronous blockchain queries and
-notifications over websockets.  Full btcd installation instructions
-can be found [here](https://github.com/btcsuite/btcd).
+remote pointcoind instance for asynchronous blockchain queries and
+notifications over websockets.  Full pointcoind installation instructions
+can be found [here](https://github.com/btcsuite/pointcoind).
 
 As a daemon, btcwallet provides no user interface and an additional
 graphical or command line client is required for normal, personal
@@ -35,9 +35,9 @@ network is currently disabled by default.
 
 ### Windows - MSI Available
 
-Install the btcd suite MSI here:
+Install the pointcoind suite MSI here:
 
-https://opensource.conformal.com/packages/windows/btcdsuite/
+https://opensource.conformal.com/packages/windows/pointcoindsuite/
 
 ### Linux/BSD/POSIX - Build from Source
 
@@ -47,11 +47,11 @@ https://opensource.conformal.com/packages/windows/btcdsuite/
 - Run the following commands to obtain and install btcwallet and all
   dependencies:
 ```bash
-$ go get -u -v github.com/btcsuite/btcd/...
+$ go get -u -v github.com/btcsuite/pointcoind/...
 $ go get -u -v github.com/btcsuite/btcwallet/...
 ```
 
-- btcd and btcwallet will now be installed in either ```$GOROOT/bin``` or
+- pointcoind and btcwallet will now be installed in either ```$GOROOT/bin``` or
   ```$GOPATH/bin``` depending on your configuration.  If you did not already
   add to your system path during the installation, we recommend you do so now.
 
@@ -59,36 +59,36 @@ $ go get -u -v github.com/btcsuite/btcwallet/...
 
 ### Windows
 
-Install a newer btcd suite MSI here:
+Install a newer pointcoind suite MSI here:
 
-https://opensource.conformal.com/packages/windows/btcdsuite/
+https://opensource.conformal.com/packages/windows/pointcoindsuite/
 
 ### Linux/BSD/POSIX - Build from Source
 
 - Run the following commands to update btcwallet, all dependencies, and install it:
 
 ```bash
-$ go get -u -v github.com/btcsuite/btcd/...
+$ go get -u -v github.com/btcsuite/pointcoind/...
 $ go get -u -v github.com/btcsuite/btcwallet/...
 ```
 
 ## Getting Started
 
 The follow instructions detail how to get started with btcwallet
-connecting to a localhost btcd.
+connecting to a localhost pointcoind.
 
 ### Windows (Installed from MSI)
 
 Open ```Btcd Suite``` from the ```Btcd Suite``` menu in the Start
 Menu.  This will also open btcgui, which can be closed if you only
-want btcd and btcwallet running.
+want pointcoind and btcwallet running.
 
 ### Linux/BSD/POSIX/Source
 
-- Run the following command to start btcd:
+- Run the following command to start pointcoind:
 
 ```bash
-$ btcd --testnet -u rpcuser -P rpcpass
+$ pointcoind --testnet -u rpcuser -P rpcpass
 ```
 
 - Run the following command to start btcwallet:
@@ -98,13 +98,13 @@ $ btcwallet -u rpcuser -P rpcpass
 ```
 
 If everything appears to be working, it is recommended at this point to
-copy the sample btcd and btcwallet configurations and update with your
+copy the sample pointcoind and btcwallet configurations and update with your
 RPC username and password.
 
 ```bash
-$ cp $GOPATH/src/github.com/btcsuite/btcd/sample-btcd.conf ~/.btcd/btcd.conf
+$ cp $GOPATH/src/github.com/btcsuite/pointcoind/sample-pointcoind.conf ~/.pointcoind/pointcoind.conf
 $ cp $GOPATH/src/github.com/btcsuite/btcwallet/sample-btcwallet.conf ~/.btcwallet/btcwallet.conf
-$ $EDITOR ~/.btcd/btcd.conf
+$ $EDITOR ~/.pointcoind/pointcoind.conf
 $ $EDITOR ~/.btcwallet/btcwallet.conf
 ```
 
@@ -116,7 +116,7 @@ websocket are expected to follow the standard Bitcoin JSON API
 (partially documented
 [here](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_Calls_list)).
 Websocket connections also enable additional API extensions and
-JSON-RPC notifications (currently undocumented).  The btcd packages
+JSON-RPC notifications (currently undocumented).  The pointcoind packages
 `btcjson` and `btcws` provide types and functions for creating and
 JSON (un)marshaling these requests and notifications.
 

@@ -22,13 +22,13 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/btcsuite/btcec"
-	"github.com/btcsuite/btcnet"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcutil/hdkeychain"
-	"github.com/btcsuite/btcwallet/snacl"
-	"github.com/btcsuite/btcwallet/walletdb"
-	"github.com/btcsuite/btcwire"
+	"github.com/PointCoin/btcec"
+	"github.com/PointCoin/btcnet"
+	"github.com/PointCoin/btcutil"
+	"github.com/PointCoin/btcutil/hdkeychain"
+	"github.com/PointCoin/wallet/snacl"
+	"github.com/PointCoin/wallet/walletdb"
+	"github.com/PointCoin/btcwire"
 )
 
 const (

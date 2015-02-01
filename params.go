@@ -17,7 +17,7 @@
 package main
 
 import (
-	"github.com/btcsuite/btcnet"
+	"github.com/PointCoin/btcnet"
 )
 
 var activeNet = &testNet3Params
@@ -27,25 +27,25 @@ var activeNet = &testNet3Params
 type params struct {
 	*btcnet.Params
 	connect  string
-	btcdPort string
+	pointcoindPort string
 	svrPort  string
 }
 
-// mainNetParams contains parameters specific running btcwallet and
-// btcd on the main network (btcwire.MainNet).
+// mainNetParams contains parameters specific running wallet and
+// pointcoind on the main network (btcwire.MainNet).
 var mainNetParams = params{
 	Params:   &btcnet.MainNetParams,
 	connect:  "localhost:8334",
-	btcdPort: "8334",
+	pointcoindPort: "8334",
 	svrPort:  "8332",
 }
 
-// testNet3Params contains parameters specific running btcwallet and
-// btcd on the test network (version 3) (btcwire.TestNet3).
+// testNet3Params contains parameters specific running wallet and
+// pointcoind on the test network (version 3) (btcwire.TestNet3).
 var testNet3Params = params{
 	Params:   &btcnet.TestNet3Params,
 	connect:  "localhost:18334",
-	btcdPort: "18334",
+	pointcoindPort: "18334",
 	svrPort:  "18332",
 }
 
@@ -54,6 +54,6 @@ var testNet3Params = params{
 var simNetParams = params{
 	Params:   &btcnet.SimNetParams,
 	connect:  "localhost:18556",
-	btcdPort: "18556",
+	pointcoindPort: "18556",
 	svrPort:  "18554",
 }

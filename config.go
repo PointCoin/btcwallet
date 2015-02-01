@@ -24,55 +24,55 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcwire"
-	flags "github.com/btcsuite/go-flags"
+	"github.com/PointCoin/btcutil"
+	"github.com/PointCoin/btcwire"
+	flags "github.com/PointCoin/go-flags"
 )
 
 const (
-	defaultCAFilename       = "btcd.cert"
-	defaultConfigFilename   = "btcwallet.conf"
-	defaultBtcNet           = btcwire.TestNet3
+	defaultCAFilename       = "pointcoind.cert"
+	defaultConfigFilename   = "wallet.conf"
+	defaultBtcNet           = btcwire.MainNet
 	defaultLogLevel         = "info"
 	defaultLogDirname       = "logs"
-	defaultLogFilename      = "btcwallet.log"
+	defaultLogFilename      = "wallet.log"
 	defaultDisallowFree     = false
 	defaultRPCMaxClients    = 10
 	defaultRPCMaxWebsockets = 25
 )
 
 var (
-	btcdHomeDir        = btcutil.AppDataDir("btcd", false)
-	btcwalletHomeDir   = btcutil.AppDataDir("btcwallet", false)
-	btcdHomedirCAFile  = filepath.Join(btcdHomeDir, "rpc.cert")
-	defaultConfigFile  = filepath.Join(btcwalletHomeDir, defaultConfigFilename)
-	defaultDataDir     = btcwalletHomeDir
-	defaultRPCKeyFile  = filepath.Join(btcwalletHomeDir, "rpc.key")
-	defaultRPCCertFile = filepath.Join(btcwalletHomeDir, "rpc.cert")
-	defaultLogDir      = filepath.Join(btcwalletHomeDir, defaultLogDirname)
+	pointcoindHomeDir       = btcutil.AppDataDir("pointcoind", false)
+	walletHomeDir           = btcutil.AppDataDir("wallet", false)
+	pointcoindHomedirCAFile = filepath.Join(pointcoindHomeDir, "rpc.cert")
+	defaultConfigFile       = filepath.Join(walletHomeDir, defaultConfigFilename)
+	defaultDataDir          = walletHomeDir
+	defaultRPCKeyFile       = filepath.Join(walletHomeDir, "rpc.key")
+	defaultRPCCertFile      = filepath.Join(walletHomeDir, "rpc.cert")
+	defaultLogDir           = filepath.Join(walletHomeDir, defaultLogDirname)
 )
 
 type config struct {
 	ShowVersion      bool     `short:"V" long:"version" description:"Display version information and exit"`
-	CAFile           string   `long:"cafile" description:"File containing root certificates to authenticate a TLS connections with btcd"`
-	RPCConnect       string   `short:"c" long:"rpcconnect" description:"Hostname/IP and port of btcd RPC server to connect to (default localhost:18334, mainnet: localhost:8334, simnet: localhost:18556)"`
+	CAFile           string   `long:"cafile" description:"File containing root certificates to authenticate a TLS connections with pointcoind"`
+	RPCConnect       string   `short:"c" long:"rpcconnect" description:"Hostname/IP and port of pointcoind RPC server to connect to (default localhost:18334, mainnet: localhost:8334, simnet: localhost:18556)"`
 	DebugLevel       string   `short:"d" long:"debuglevel" description:"Logging level {trace, debug, info, warn, error, critical}"`
 	ConfigFile       string   `short:"C" long:"configfile" description:"Path to configuration file"`
 	SvrListeners     []string `long:"rpclisten" description:"Listen for RPC/websocket connections on this interface/port (default port: 18332, mainnet: 8332, simnet: 18554)"`
 	DataDir          string   `short:"D" long:"datadir" description:"Directory to store wallets and transactions"`
 	LogDir           string   `long:"logdir" description:"Directory to log output."`
-	Username         string   `short:"u" long:"username" description:"Username for client and btcd authorization"`
-	Password         string   `short:"P" long:"password" default-mask:"-" description:"Password for client and btcd authorization"`
-	BtcdUsername     string   `long:"btcdusername" description:"Alternative username for btcd authorization"`
-	BtcdPassword     string   `long:"btcdpassword" default-mask:"-" description:"Alternative password for btcd authorization"`
+	Username         string   `short:"u" long:"username" description:"Username for client and pointcoind authorization"`
+	Password         string   `short:"P" long:"password" default-mask:"-" description:"Password for client and pointcoind authorization"`
+	BtcdUsername     string   `long:"pointcoindusername" description:"Alternative username for pointcoind authorization"`
+	BtcdPassword     string   `long:"pointcoindpassword" default-mask:"-" description:"Alternative password for pointcoind authorization"`
 	RPCCert          string   `long:"rpccert" description:"File containing the certificate file"`
 	RPCKey           string   `long:"rpckey" description:"File containing the certificate key"`
 	RPCMaxClients    int64    `long:"rpcmaxclients" description:"Max number of RPC clients for standard connections"`
 	RPCMaxWebsockets int64    `long:"rpcmaxwebsockets" description:"Max number of RPC websocket connections"`
 	DisableServerTLS bool     `long:"noservertls" description:"Disable TLS for the RPC server -- NOTE: This is only allowed if the RPC server is bound to localhost"`
 	DisableClientTLS bool     `long:"noclienttls" description:"Disable TLS for the RPC client -- NOTE: This is only allowed if the RPC client is connecting to localhost"`
-	MainNet          bool     `long:"mainnet" description:"Use the main Bitcoin network (default testnet3)"`
-	SimNet           bool     `long:"simnet" description:"Use the simulation test network (default testnet3)"`
+	MainNet          bool     `long:"mainnet" description:"Use the main Bitcoin network (default mainnet)"`
+	SimNet           bool     `long:"simnet" description:"Use the simulation test network (default mainnet)"`
 	KeypoolSize      uint     `short:"k" long:"keypoolsize" description:"DEPRECATED -- Maximum number of addresses in keypool"`
 	DisallowFree     bool     `long:"disallowfree" description:"Force transactions to always include a fee"`
 	Proxy            string   `long:"proxy" description:"Connect via SOCKS5 proxy (eg. 127.0.0.1:9050)"`
@@ -86,7 +86,7 @@ type config struct {
 func cleanAndExpandPath(path string) string {
 	// Expand initial ~ to OS specific home directory.
 	if strings.HasPrefix(path, "~") {
-		homeDir := filepath.Dir(btcwalletHomeDir)
+		homeDir := filepath.Dir(walletHomeDir)
 		path = strings.Replace(path, "~", homeDir, 1)
 	}
 
@@ -232,7 +232,7 @@ func normalizeAddress(addr, defaultPort string) string {
 //      3) Load configuration file overwriting defaults with any specified options
 //      4) Parse CLI options and overwrite/add any specified options
 //
-// The above results in btcwallet functioning properly without any config
+// The above results in wallet functioning properly without any config
 // settings while still allowing the user to override settings with config files
 // and command line options.  Command line options always take precedence.
 func loadConfig() (*config, []string, error) {
@@ -365,7 +365,7 @@ func loadConfig() (*config, []string, error) {
 	}
 
 	// Add default port to connect flag if missing.
-	cfg.RPCConnect = normalizeAddress(cfg.RPCConnect, activeNet.btcdPort)
+	cfg.RPCConnect = normalizeAddress(cfg.RPCConnect, activeNet.pointcoindPort)
 
 	localhostListeners := map[string]struct{}{
 		"localhost": struct{}{},
@@ -387,16 +387,16 @@ func loadConfig() (*config, []string, error) {
 			return nil, nil, err
 		}
 	} else {
-		// If CAFile is unset, choose either the copy or local btcd cert.
+		// If CAFile is unset, choose either the copy or local pointcoind cert.
 		if cfg.CAFile == "" {
 			cfg.CAFile = filepath.Join(cfg.DataDir, defaultCAFilename)
 
 			// If the CA copy does not exist, check if we're connecting to
-			// a local btcd and switch to its RPC cert if it exists.
+			// a local pointcoind and switch to its RPC cert if it exists.
 			if !fileExists(cfg.CAFile) {
 				if _, ok := localhostListeners[RPCHost]; ok {
-					if fileExists(btcdHomedirCAFile) {
-						cfg.CAFile = btcdHomedirCAFile
+					if fileExists(pointcoindHomedirCAFile) {
+						cfg.CAFile = pointcoindHomedirCAFile
 					}
 				}
 			}
@@ -448,10 +448,10 @@ func loadConfig() (*config, []string, error) {
 	// Expand environment variable and leading ~ for filepaths.
 	cfg.CAFile = cleanAndExpandPath(cfg.CAFile)
 
-	// If the btcd username or password are unset, use the same auth as for
-	// the client.  The two settings were previously shared for btcd and
+	// If the pointcoind username or password are unset, use the same auth as for
+	// the client.  The two settings were previously shared for pointcoind and
 	// client auth, so this avoids breaking backwards compatibility while
-	// allowing users to use different auth settings for btcd and wallet.
+	// allowing users to use different auth settings for pointcoind and wallet.
 	if cfg.BtcdUsername == "" {
 		cfg.BtcdUsername = cfg.Username
 	}

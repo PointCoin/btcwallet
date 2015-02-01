@@ -17,10 +17,10 @@
 package main
 
 import (
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcwallet/chain"
-	"github.com/btcsuite/btcwallet/keystore"
-	"github.com/btcsuite/btcwire"
+	"github.com/PointCoin/btcutil"
+	"github.com/PointCoin/wallet/chain"
+	"github.com/PointCoin/wallet/keystore"
+	"github.com/PointCoin/btcwire"
 )
 
 // RescanProgressMsg reports the current progress made by a rescan for a
