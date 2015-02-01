@@ -20,40 +20,26 @@ import (
 	"github.com/PointCoin/btcnet"
 )
 
-var activeNet = &testNet3Params
+var activeNet = &mainNetParams
 
 // params is used to group parameters for various networks such as the main
 // network and test networks.
 type params struct {
 	*btcnet.Params
-	connect  string
+	connect        string
 	pointcoindPort string
-	svrPort  string
+	svrPort        string
 }
 
 // mainNetParams contains parameters specific running wallet and
 // pointcoind on the main network (btcwire.MainNet).
 var mainNetParams = params{
-	Params:   &btcnet.MainNetParams,
-	connect:  "localhost:8334",
-	pointcoindPort: "8334",
-	svrPort:  "8332",
+	Params:         &btcnet.MainNetParams,
+	connect:        "localhost:22228",
+	pointcoindPort: "22228",
+	svrPort:        "8332",
 }
 
-// testNet3Params contains parameters specific running wallet and
-// pointcoind on the test network (version 3) (btcwire.TestNet3).
-var testNet3Params = params{
-	Params:   &btcnet.TestNet3Params,
-	connect:  "localhost:18334",
-	pointcoindPort: "18334",
-	svrPort:  "18332",
-}
+var testNet3Params = mainNetParams
 
-// simNetParams contains parameters specific to the simulation test network
-// (btcwire.SimNet).
-var simNetParams = params{
-	Params:   &btcnet.SimNetParams,
-	connect:  "localhost:18556",
-	pointcoindPort: "18556",
-	svrPort:  "18554",
-}
+var simNetParams = mainNetParams
