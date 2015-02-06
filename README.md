@@ -1,10 +1,7 @@
-btcwallet
+wallet
 =========
 
-[![Build Status](https://travis-ci.org/btcsuite/btcwallet.png?branch=master)]
-(https://travis-ci.org/btcsuite/btcwallet)
-
-btcwallet is a daemon handling bitcoin wallet functionality for a
+wallet is a daemon handling bitcoin wallet functionality for a
 single user.  It acts as both an RPC client to pointcoind and an RPC server
 for wallet clients and legacy RPC applications.
 
@@ -16,135 +13,48 @@ unsupported and are never written to disk.  This design decision has
 the consequence of generating new wallets on the fly impossible: a
 client is required to provide a wallet encryption passphrase.
 
-btcwallet is not an SPV client and requires connecting to a local or
+wallet is not an SPV client and requires connecting to a local or
 remote pointcoind instance for asynchronous blockchain queries and
 notifications over websockets.  Full pointcoind installation instructions
 can be found [here](https://github.com/btcsuite/pointcoind).
 
-As a daemon, btcwallet provides no user interface and an additional
+As a daemon, wallet provides no user interface and an additional
 graphical or command line client is required for normal, personal
 wallet usage.  Conformal has written
 [btcgui](https://github.com/btcsuite/btcgui) as a graphical client
-to btcwallet.
-
-This project is currently under active development is not production
-ready yet.  Support for creating and using wallets the main Bitcoin
-network is currently disabled by default.
+to wallet.
 
 ## Installation
-
-### Windows - MSI Available
-
-Install the pointcoind suite MSI here:
-
-https://opensource.conformal.com/packages/windows/pointcoindsuite/
 
 ### Linux/BSD/POSIX - Build from Source
 
 - Install Go according to the installation instructions here:
   http://golang.org/doc/install
 
-- Run the following commands to obtain and install btcwallet and all
+- Run the following commands to obtain and install wallet and all
   dependencies:
 ```bash
-$ go get -u -v github.com/btcsuite/pointcoind/...
-$ go get -u -v github.com/btcsuite/btcwallet/...
+$ go get -u -v github.com/PointCoin/pointcoind/...
+$ go get -u -v github.com/PointCoin/wallet/...
 ```
 
-- pointcoind and btcwallet will now be installed in either ```$GOROOT/bin``` or
+- pointcoind and wallet will now be installed in either ```$GOROOT/bin``` or
   ```$GOPATH/bin``` depending on your configuration.  If you did not already
   add to your system path during the installation, we recommend you do so now.
 
 ## Updating
 
-### Windows
-
-Install a newer pointcoind suite MSI here:
-
-https://opensource.conformal.com/packages/windows/pointcoindsuite/
-
 ### Linux/BSD/POSIX - Build from Source
 
-- Run the following commands to update btcwallet, all dependencies, and install it:
+- Run the following commands to update wallet, all dependencies, and install it:
 
 ```bash
 $ go get -u -v github.com/btcsuite/pointcoind/...
-$ go get -u -v github.com/btcsuite/btcwallet/...
+$ go get -u -v github.com/btcsuite/wallet/...
 ```
 
 ## Getting Started
 
-The follow instructions detail how to get started with btcwallet
-connecting to a localhost pointcoind.
+A detailed guide to using the wallet binary lives in the PointCoin wiki. 
+Right [here](https://github.com/PointCoin/pointcoind/wiki/Using-PointCoin-Binaries) specifically.
 
-### Windows (Installed from MSI)
-
-Open ```Btcd Suite``` from the ```Btcd Suite``` menu in the Start
-Menu.  This will also open btcgui, which can be closed if you only
-want pointcoind and btcwallet running.
-
-### Linux/BSD/POSIX/Source
-
-- Run the following command to start pointcoind:
-
-```bash
-$ pointcoind --testnet -u rpcuser -P rpcpass
-```
-
-- Run the following command to start btcwallet:
-
-```bash
-$ btcwallet -u rpcuser -P rpcpass
-```
-
-If everything appears to be working, it is recommended at this point to
-copy the sample pointcoind and btcwallet configurations and update with your
-RPC username and password.
-
-```bash
-$ cp $GOPATH/src/github.com/btcsuite/pointcoind/sample-pointcoind.conf ~/.pointcoind/pointcoind.conf
-$ cp $GOPATH/src/github.com/btcsuite/btcwallet/sample-btcwallet.conf ~/.btcwallet/btcwallet.conf
-$ $EDITOR ~/.pointcoind/pointcoind.conf
-$ $EDITOR ~/.btcwallet/btcwallet.conf
-```
-
-## Client Usage
-
-Clients wishing to use btcwallet must connect to the `ws` endpoint
-over a websocket connection.  Messages sent to btcwallet over this
-websocket are expected to follow the standard Bitcoin JSON API
-(partially documented
-[here](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_Calls_list)).
-Websocket connections also enable additional API extensions and
-JSON-RPC notifications (currently undocumented).  The pointcoind packages
-`btcjson` and `btcws` provide types and functions for creating and
-JSON (un)marshaling these requests and notifications.
-
-## Issue Tracker
-
-The [integrated github issue tracker](https://github.com/btcsuite/btcwallet/issues)
-is used for this project.
-
-## GPG Verification Key
-
-All official release tags are signed by Conformal so users can ensure the code
-has not been tampered with and is coming from Conformal.  To verify the
-signature perform the following:
-
-- Download the public key from the Conformal website at
-  https://opensource.conformal.com/GIT-GPG-KEY-conformal.txt
-
-- Import the public key into your GPG keyring:
-  ```bash
-  gpg --import GIT-GPG-KEY-conformal.txt
-  ```
-
-- Verify the release tag with the following command where `TAG_NAME` is a
-  placeholder for the specific tag:
-  ```bash
-  git tag -v TAG_NAME
-  ```
-
-## License
-
-btcwallet is licensed under the liberal ISC License.
